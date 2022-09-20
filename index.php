@@ -1,4 +1,3 @@
-<?php include './php/connection.php' ?>
 
 <html lang="en">
 <head>
