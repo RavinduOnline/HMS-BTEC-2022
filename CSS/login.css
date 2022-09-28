@@ -18,11 +18,11 @@
     margin-top: 7vh;
 }
 
-/* p.error {
+.error {
 	background: red;
 	color: white;
-	padding: 10px;
-} */
+	padding: 1rem;
+}
 
 .login-input {
 	display: block;
@@ -42,4 +42,11 @@
 	box-sizing: border-box;
     background-color: #002349;
     color: white;
+}
+
+.info{
+	text-align: center;
+	background: green;
+	color: white;
+	padding: 10px;
 }

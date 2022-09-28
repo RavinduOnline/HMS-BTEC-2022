@@ -79,7 +79,7 @@
 }
 
 .logout-box a:hover{
-    color: rgb(0, 149, 255);
+    color: rgba(255, 0, 0, 0.886);
 }
 
 .main-menu{
@@ -91,9 +91,9 @@
 }
 
 .menu-item-link{
-    padding: 1rem;
+    padding: 1rem 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     text-transform: capitalize;
     color: white;
