@@ -1,5 +1,8 @@
 <?php session_start(); ?>
 <?php require_once('./php/connection.php'); ?>
+<?php require_once('./php/functions.php'); ?>
+
+
 
 <?php 
 	// checking if a user is logged in
@@ -84,7 +87,7 @@
 
 			$result_set = mysqli_query($connection, $query);
 
-			if ($result_set) {
+			verify_query($result_set);
 				// query succesfful
                 // echo "<script>console.log($result_set );</script>";
 
@@ -101,9 +104,6 @@
 					// user name and password invalid
 					$errors[] = 'Invalid Username / Password';
 				}
-			} else {
-				$errors[] = 'Database query failed';
-			}
 		}
 	}
 ?>

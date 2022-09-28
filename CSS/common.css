@@ -10,8 +10,10 @@ body {
 
 .page-main-title{
     font-size: 2.5rem;
-    margin: 0.3rem 0rem;
+    margin: 0.3rem 0.3rem;
 }
+
+/* View Table CSS */
 
 .detail-table {
     font-family: Arial, Helvetica, sans-serif;
@@ -38,4 +40,109 @@ body {
 
 #id-col{
     width: 1%;
+}
+
+#action-col{
+    width: 15rem;
+}
+
+/* View Page Top Container CSS */
+.viewpage-top-container{
+    display: flex;
+    justify-content: end;
+    margin: 1rem 0rem;
+    padding: 1rem;
+}
+
+.add-new-button{
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 1rem;
+    color: white;
+    transition-duration: 0.4s;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #008CBA;
+    border: 0px solid #008CBA;
+}
+.add-new-button:hover{
+    color: #008CBA;
+    background-color: white; 
+    border: 2px solid #008CBA;
+}
+
+/* Add Page Top Container CSS  */
+
+.addpage-top-container{
+    display: flex;
+    justify-content: start;
+    margin: 1rem 0rem;
+    padding: 1rem;
+}
+
+.back-button{
+    text-decoration: none;
+    color: black;
+    font-weight: 800;
+}
+
+/* Add Form Container CSS */
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box{
+    background-color: #f2f2f2;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    border: 2px black solid;
+    width: 50%;
+}
+
+.form-container input, select {
+    width: 100%;
+    padding: 0.8rem 1.8rem;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-container label{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.submit-button-container{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+  
+.submit-button-container button{
+    border-radius: 5px;
+    width: 25%;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.7rem;
+    color: white;
+    transition-duration: 0.4s;
+    text-align: center;
+    cursor: pointer;
+    background-color: #4CAF50;
+    border: none;
+}
+
+.submit-button-container button:hover {
+    background-color: #45a049;
+  }
+
+.form-errmsg{
+    color: red;
 }
