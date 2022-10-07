@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <?php require_once('./php/connection.php'); ?>
+<?php require_once('./php/functions.php'); ?>
 
 
 <?php 
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="./CSS/dashboard.css">
 
 
+
     <!--load icon styles -->
     <script src="https://kit.fontawesome.com/853b48ffc0.js" crossorigin="anonymous"></script>
 
@@ -30,7 +32,21 @@
     <?php include './php/components/sidebar.php' ?>
 
     <div class="body-text">
-        <?php include './php/components/admin-dashboard.php' ?>
+        
+        <?php 
+            if($_SESSION['access'] =="admin"){
+                include './php/components/admin-dashboard.php';
+            }
+            elseif($_SESSION['access'] =="doctor"){
+                include './php/components/doctor-dashboard.php' ;
+            }
+            elseif($_SESSION['access'] =="nurse"){
+                include './php/components/admin-dashboard.php';
+            }
+            elseif($_SESSION['access'] =="staff"){
+                include './php/components/admin-dashboard.php';
+            }
+        ?>
 
     </div>
 

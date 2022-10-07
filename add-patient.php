@@ -8,7 +8,16 @@
 		header('Location: login.php');
 	}
 
-    
+    $doctors_list = '';
+
+	// getting the list of doctors
+	$query = "SELECT * FROM doctors";
+	$doctors = mysqli_query($connection, $query);
+
+	verify_query($doctors);
+		while ($doctor = mysqli_fetch_assoc($doctors)) {
+			$doctors_list .= "<option value='{$doctor['id']}'>{$doctor['name']} - {$doctor['type']} </option>";
+		}
     
 	$errors = array();
     $firstName = '';
@@ -187,7 +196,7 @@
                             <br/>
                                 <select name="supervising_Doctor"  <?php echo 'value="' . $supervisingDoctor . '"'; ?>>
                                     <option value="" selected hidden>Select Doctor</option>
-                                    <option value="1">Audi</option>
+                                    <?php echo $doctors_list; ?>
                                 </select>
                         </div>
                         

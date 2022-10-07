@@ -8,37 +8,54 @@
 		header('Location: login.php');
 	}
 
-    $doctors_list = '';
+    $patients_list = '';
 
-	// getting the list of doctors
+	// getting the list of patients
 	$query = "SELECT * FROM patients ORDER BY create_datetime DESC";
-	$doctors = mysqli_query($connection, $query);
+	$patients = mysqli_query($connection, $query);
 
-	verify_query($doctors);
+	verify_query($patients);
         $AdmitStatus = '';
-		while ($doctor = mysqli_fetch_assoc($doctors)) {
-			$doctors_list .= "<tr>";
-			$doctors_list .= "<td>{$doctor['id']}</td>";
-			$doctors_list .= "<td>{$doctor['first_name']} {$doctor['last_name']}</td>";
-            $doctors_list .= "<td>{$doctor['nic']}</td>";
-			$doctors_list .= "<td>{$doctor['city']}</td>";
-            $doctors_list .= "<td>{$doctor['contact_no']}</td>";
-            $doctors_list .= "<td>{$doctor['custodians_name']}</td>";
-            $doctors_list .= "<td>{$doctor['custodians_contact_no']}</td>";
-            if($doctor['isAdmit']){
+		while ($patient = mysqli_fetch_assoc($patients)) {
+			$patients_list .= "<tr>";
+			$patients_list .= "<td>{$patient['id']}</td>";
+			$patients_list .= "<td>{$patient['first_name']} {$patient['last_name']}</td>";
+            $patients_list .= "<td>{$patient['nic']}</td>";
+			$patients_list .= "<td>{$patient['city']}</td>";
+            $patients_list .= "<td>{$patient['contact_no']}</td>";
+            $patients_list .= "<td>{$patient['custodians_name']}</td>";
+            $patients_list .= "<td>{$patient['custodians_contact_no']}</td>";
+            if($patient['isAdmit']){
                 $AdmitStatus = 'Admitted';
             }
             else{
                 $AdmitStatus = 'Not Admitted';
             }
-            $doctors_list .= "<td>{$AdmitStatus}</td>";
-			$doctors_list .= "<td>
-                                 <div class='action-container'>
-                                    <a class='edit-button' href=\"modify-user.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                    <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
-                                  </div>
-                              </td>";
-			$doctors_list .= "</tr>";
+            $patients_list .= "<td>{$AdmitStatus}</td>";
+            if($_SESSION['access'] == 'admin'){
+                $patients_list .= "<td>
+                                    <div class='action-container'>
+                                        <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='delete-button' href=\"delete-user.php?user_id={$patient['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                    </div>
+                                </td>";
+            }
+            elseif($_SESSION['access'] == 'doctor'){
+                $patients_list .= "<td>
+                                    <div class='action-container'>
+                                        <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='medication-button' href=\"modify-user.php?user_id={$patient['id']}\">Give Medication</a>
+                                    </div>
+                                </td>";
+            }
+            elseif($_SESSION['access'] == 'nurse'){
+                $patients_list .= "<td>
+                                    <div class='action-container'>
+                                        <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                    </div>
+                                </td>";
+            }
+			$patients_list .= "</tr>";
 		}
 
 
@@ -84,7 +101,7 @@
                             <th id="action-col">Action</th>
                         </tr>
                         
-                        <?php echo $doctors_list; ?>
+                        <?php echo $patients_list; ?>
                 </table>
             </div>
 
