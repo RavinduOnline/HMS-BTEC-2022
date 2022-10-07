@@ -111,6 +111,12 @@ verify_query($patients);
                         </tr>
                         
                         <?php echo $patients_list; ?>
+                        <?php if(!$patients_list){
+                            echo '<td colspan="7" style="text-align:center;">
+                                    <i class="fa-sharp fa-solid fa-hourglass"></i>  No Patients Available
+                                  </td>';
+                                } 
+                        ?>
                 </table>
             </div>
 </div>

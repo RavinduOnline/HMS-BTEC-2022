@@ -23,7 +23,7 @@
 			$doctors_list .= "<td>{$doctor['type']}</td>";
 			$doctors_list .= "<td>
                                  <div class='action-container'>
-                                    <a class='edit-button' href=\"modify-user.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                    <a class='edit-button' href=\"modify-doctor.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
                                     <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                   </div>
                               </td>";
