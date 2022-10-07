@@ -1,0 +1,15 @@
+.input-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.input-container div{
+    width: 48%;
+
+}
+
+.form-container-Patient{
+    margin-bottom: 4rem;
+}

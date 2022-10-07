@@ -11,7 +11,7 @@
     $doctors_list = '';
 
 	// getting the list of doctors
-	$query = "SELECT * FROM doctors ORDER BY create_datetime DESC";
+	$query = "SELECT * FROM staffs ORDER BY create_datetime DESC";
 	$doctors = mysqli_query($connection, $query);
 
 	verify_query($doctors);
@@ -46,19 +46,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Doctors - HMS</title>
+    <title>Manage Staff - HMS</title>
 </head>
 <body>
    <!--Header call-->
    <?php include './php/components/sidebar.php' ?>
 
     <div class="body-text">
-            <h1 class="page-main-title">Doctors Management</h1>
+            <h1 class="page-main-title">Staff Management</h1>
             <hr/>
 
             <div>
                 <div class="viewpage-top-container">
-                    <a href="add-doctor.php" class="add-new-button">Add New Doctor &nbsp<i class="fa-solid fa-plus"></i></a>
+                    <a href="add-doctor.php" class="add-new-button">Add New Staff Member &nbsp<i class="fa-solid fa-plus"></i></a>
                 </div>
                 <table class="detail-table">
                         <tr>

@@ -22,14 +22,26 @@
         </div>
         
         <div class="main-menu">
-            <a href="index.php" class="menu-item-link"> <i class="fa-solid fa-house-medical"></i> &nbsp Dashboard</a>
-            <a href="doctor.php" class="menu-item-link"><i class="fa-solid fa-stethoscope"></i> &nbsp Manage Doctors </a>
-            <a href="#logout" class="menu-item-link"><i class="fa-sharp fa-solid fa-user-nurse"></i> &nbsp Manage Nurses</a>
-            <a href="#logout" class="menu-item-link"><i class="fa-solid fa-user-tie"></i> &nbsp Manage Staffs</a>
-            <?php
-                if($_SESSION['access'] == "admin"){
-                    echo '<a href="#logout" class="menu-item-link"><i class="fa-solid fa-toolbox"></i> &nbsp Manage Admins</a>';
+        <?php
+
+                    echo ' <a href="index.php" class="menu-item-link"> <i class="fa-solid fa-house-medical"></i> &nbsp Dashboard</a>';
+                if($_SESSION['access'] == "admin" || $_SESSION['access'] =="doctor" || $_SESSION['access'] =="nurse"){
+                    echo '<a href="patient.php" class="menu-item-link"><i class="fa-solid fa-hospital-user"></i> &nbsp Manage Patients</a>';
+                    echo '<a href="ward.php" class="menu-item-link"><i class="fa-solid fa-bed-pulse"></i> &nbsp Manage Ward</a>';
                 }
+                if($_SESSION['access'] == "admin"){
+                    echo '<a href="doctor.php" class="menu-item-link"><i class="fa-solid fa-stethoscope"></i> &nbsp Manage Doctors </a>';
+                };
+                if($_SESSION['access'] == "admin" || $_SESSION['access'] =="doctor"){
+                    echo ' <a href="nurse.php" class="menu-item-link"><i class="fa-sharp fa-solid fa-user-nurse"></i> &nbsp Manage Nurses</a>';
+                }
+                
+                if($_SESSION['access'] == "admin"){
+                    echo '<a href="staff.php" class="menu-item-link"><i class="fa-solid fa-user-tie"></i> &nbsp Manage Staffs</a>';
+                    echo '<a href="admin.php" class="menu-item-link"><i class="fa-solid fa-toolbox"></i> &nbsp Manage Admins</a>';
+                }
+
+              
             ?>
 
         </div>
