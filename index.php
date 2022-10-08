@@ -21,6 +21,8 @@
 
     <!--load icon styles -->
     <script src="https://kit.fontawesome.com/853b48ffc0.js" crossorigin="anonymous"></script>
+    <!-- Import Chart JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -32,7 +32,7 @@
 
     function display_errors($errors) {
 		// format and displays form errors
-		echo '<div class="form-errmsg">';
+		echo '<div class="form-errmsg error">';
 		echo '<b>There were error(s) on your form.</b><br>';
 		foreach ($errors as $error) {
 			$error = ucfirst(str_replace("_", " ", $error));

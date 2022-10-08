@@ -17,7 +17,6 @@
     padding: 0.8rem;
     border-radius: 10px;
     width: 17%;
-    height: 11vh;
     color: white;
     margin: 0.5rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -34,6 +33,7 @@
     font-weight: 600;
     text-align: center;
     margin-top: 1.4vw;
+    margin-bottom: 1.4vw;
 }
 
 .user-card{
@@ -56,4 +56,11 @@
 
 .doc-patient-mini-tablebox{
     margin-top: 4rem;
+}
+
+/* Admin Dashboard */
+.chart-container{
+    display: flex;
+    padding: 3rem;
+    justify-content: center;
 }

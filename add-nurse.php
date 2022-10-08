@@ -12,7 +12,6 @@
     $name = '';
     $position = '';
     $nic = '';
-    $ward = '';
     $password = '';
 
 	if (isset($_POST['submit'])) {
@@ -20,7 +19,6 @@
         $name = $_POST['name'];
         $position = $_POST['position'];
         $nic = $_POST['nic'];
-        $ward = $_POST['ward'];
         $password = $_POST['password'];
 
 		// checking required fields
@@ -28,12 +26,12 @@
 		$errors = array_merge($errors, check_req_fields($req_fields));
 
         // checking max length
-		$max_len_fields = array('name' => 100, 'position' =>100, 'nic' => 12, 'ward' => 3,'password' => 20);
+		$max_len_fields = array('name' => 100, 'position' =>100, 'nic' => 12, 'password' => 20);
         $errors = array_merge($errors, check_max_len($max_len_fields));
 
         // checking if NIC  already exists
 		$nic = mysqli_real_escape_string($connection, $_POST['nic']);
-		$query = "SELECT * FROM doctors WHERE nic = '{$nic}' LIMIT 1";
+		$query = "SELECT * FROM nurses WHERE nic = '{$nic}' LIMIT 1";
 
 		$result_set = mysqli_query($connection, $query);
 
@@ -48,22 +46,19 @@
 			$name = mysqli_real_escape_string($connection, $_POST['name']);
 			$position = mysqli_real_escape_string($connection, $_POST['position']);
 			$nic = mysqli_real_escape_string($connection, $_POST['nic']);
-            $ward = mysqli_real_escape_string($connection, $_POST['ward']);
             $password = mysqli_real_escape_string($connection, $_POST['password']);
 
-            if(trim($ward) == ''){
-                $ward = '0';
-            }
+            
             // encrypt password
 			$hashed_password = sha1($password);
 
-			$query = "INSERT INTO `doctors` (`id`, `password`, `name`, `nic`, `type`, `wardNo`, `create_datetime`) VALUES (NULL, '{$hashed_password}', '{$name}', '{$nic}', '{$position}', '{$ward}', current_timestamp())";
+			$query = "INSERT INTO `nurses` (`id`, `password`, `name`, `type`, `nic`,`create_datetime`) VALUES (NULL, '{$hashed_password}', '{$name}','{$position}' , '{$nic}', current_timestamp())";
 
 			$result = mysqli_query($connection, $query);
 
 			if ($result) {
 				// query successful... redirecting to doctor page
-				header('Location: doctor.php?doctor_added=true');
+				header('Location: nurse.php?nurse_added=true');
 			} else {
 				$errors[] = 'Failed to add the new record.';
 			}
@@ -83,7 +78,6 @@
     <link rel="stylesheet" href="./CSS/sidebar.css">
     <link rel="stylesheet" href="./CSS/common.css">
     <link rel="stylesheet" href="./CSS/footer.css">
-    <link rel="stylesheet" href="./CSS/doctor.css">
 
     <!--load icon styles -->
     <script src="https://kit.fontawesome.com/853b48ffc0.js" crossorigin="anonymous"></script>
@@ -91,23 +85,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Doctor - HMS</title>
+    <title>Add New Nurse - HMS</title>
 </head>
 <body>
    <!--Header call-->
    <?php include './php/components/sidebar.php' ?>
 
     <div class="body-text">
-            <h1 class="page-main-title"><i class="fa-solid fa-user-doctor"></i> &nbsp Add New Doctor</h1>
+            <h1 class="page-main-title">&nbsp Add New Nurse</h1>
             <hr/>
 
             <div>
                 <div class="addpage-top-container">
-                    <a href="doctor.php" class="back-button"><i class="fa-solid fa-chevron-left"></i>&nbsp Back to Doctor List</a>
+                    <a href="nurse.php" class="back-button"><i class="fa-solid fa-chevron-left"></i>&nbsp Back to Nurses List</a>
                 </div>
 
                 <div class="form-container">
-                    <form action="add-doctor.php" method="post" class="form-box">
+                    <form action="add-nurse.php" method="post" class="form-box">
                         <div>
                             <label>Name:</label>
                             <br/>
@@ -117,18 +111,18 @@
                         <div>
                             <label>Position:</label>
                             <br/>
-                            <input type="text" name="position" placeholder="Entre Position" maxlength="100"  <?php echo 'value="' . $position . '"'; ?> required>
+                            <select name="position" required>
+                                    <option value="" selected hidden>Select Position</option>
+                                    <option value="Junior Nurse">Junior Nurse</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Senior Nurse">Senior Nurse</option>
+                            </select>
                         </div>
 
                         <div>
                             <label>NIC No:</label>
                             <br/>
                             <input type="text" name="nic" placeholder="Entre NIC Number"   <?php echo 'value="' . $nic . '"'; ?> >
-                        </div>
-                        <div>
-                            <label>Ward No:</label>
-                            <br/>
-                            <input type="number" name="ward" placeholder="Entre Ward Number"   <?php echo 'value="' . $ward . '"'; ?>>
                         </div>
 
                         <div>

@@ -32,7 +32,7 @@
 
 		// Check if username  and user type are in correct format
 		if(trim($_POST['usertype']) != 3 &&  ! ctype_digit(strval(trim($_POST['username']))) ){
-			$errors[] = 'User type is Missing / Invalid';
+			$errors[] = 'User type is Invalid or Username is Invalid ';
 		}
 
 		// check if there are any errors in the form
@@ -48,7 +48,11 @@
 				case 1:
 					$query = "SELECT * FROM doctors 
 							  WHERE id = $username 
+							  AND
+							  isActive = true
 							  AND 
+							  isDeleted != true
+							  AND
 							  password = '{$hashed_password}'  
 							  LIMIT 1
 							  ";
@@ -57,6 +61,10 @@
 				case 2:
 					$query = "SELECT * FROM nurses 
 							  WHERE id = $username 
+							  AND
+							  isActive = true
+							  AND 
+							  isDeleted != true
 							  AND 
 							  password = '{$hashed_password}'  
 							  LIMIT 1
@@ -66,6 +74,10 @@
 				case 3:
 					$query = "SELECT * FROM admins 
 							  WHERE username = '{$username}' 
+							  AND
+							  isActive = true
+							  AND 
+							  isDeleted != true
 							  AND 
 							  password = '{$hashed_password}'  
 							  LIMIT 1
@@ -75,6 +87,10 @@
 				case 4:
 					$query = "SELECT * FROM staffs 
 						      WHERE id = $username 
+							  AND
+							  isActive = true
+							  AND 
+							  isDeleted != true
 							  AND 
 							  password = '{$hashed_password}'  
 							  LIMIT 1
@@ -102,7 +118,7 @@
 					header('Location: index.php');
 				} else {
 					// user name and password invalid
-					$errors[] = 'Invalid Username / Password';
+					$errors[] = "Invalid Username / Password or You'r Account is Deactivated";
 				}
 		}
 	}
@@ -111,6 +127,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="./CSS/login.css">
+
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -126,9 +143,10 @@
                             <legend><h1>Admin Log In</h1></legend>
 
                             <?php 
-                                if (isset($errors) && !empty($errors)) {
-                                    echo '<p class="error">Invalid Username / Password / User type </p>';
-                                }
+                                if (!empty($errors)) {
+									display_errors($errors);
+									echo '<br/>';
+								}
 
 								if (isset($_GET['logout'])) {
 									echo '<p class="info">✓ You have successfully logged out from the system</p>';

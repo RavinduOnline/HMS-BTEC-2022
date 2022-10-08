@@ -11,7 +11,7 @@
     $doctors_list = '';
 
 	// getting the list of doctors
-	$query = "SELECT * FROM doctors";
+	$query = "SELECT * FROM doctors WHERE isDeleted != true";
 	$doctors = mysqli_query($connection, $query);
 
 	verify_query($doctors);
@@ -61,6 +61,18 @@
         // checking max length
 		$max_len_fields = array('first_Name' => 100, 'last_Name' =>100, 'nic' => 12, 'contact_Number' => 10,'house_No' => 20, 'street_Name' => 100, 'city' => 100, 'patient_Status' => 1, 'CustodianName' => 100,'CustodianNumber' => 10 );
         $errors = array_merge($errors, check_max_len($max_len_fields));
+
+        // checking if NIC  already exists
+		$nic = mysqli_real_escape_string($connection, $_POST['nic']);
+		$query = "SELECT * FROM patients WHERE nic = '{$nic}' LIMIT 1";
+
+		$result_set = mysqli_query($connection, $query);
+
+        if ($result_set) {
+			if (mysqli_num_rows($result_set) == 1) {
+				$errors[] = 'NIC already exists';
+			}
+		}
 
 
         if (empty($errors)) {

@@ -6,16 +6,16 @@ $admins_count = '-';
 
 
 // getting the Counts
-$staff_query = "SELECT * FROM staffs";
+$staff_query = "SELECT * FROM staffs WHERE isDeleted != true";
 $staffs_result = mysqli_query($connection, $staff_query);
 
-$doctor_query = "SELECT * FROM doctors";
+$doctor_query = "SELECT * FROM doctors WHERE isDeleted != true";
 $doctors_result = mysqli_query($connection, $doctor_query);
 
-$nurse_query = "SELECT * FROM nurses";
+$nurse_query = "SELECT * FROM nurses WHERE isDeleted != true";
 $nurses_result = mysqli_query($connection, $nurse_query);
 
-$admin_query = "SELECT * FROM admins";
+$admin_query = "SELECT * FROM admins WHERE isDeleted != true";
 $admins_result = mysqli_query($connection, $admin_query);
 
 
@@ -32,7 +32,7 @@ if($admins_result){
     $admins_count = mysqli_num_rows( $admins_result );
 }
 
-
+$countArray = array($admins_count, $doctor_count,  $nurse_count, $staff_count, 0);
 
 
 
@@ -64,4 +64,30 @@ if($admins_result){
                     </div>
                 </div>
             </div>
+            <div class="chart-container">
+                <canvas id="myChart" style="max-width:80%;"></canvas>
+            </div>
+
+<script>
+    var xValues = ["Admins", "Doctors","Nurses","Staff"];
+    var yValues = <?php echo json_encode($countArray); ?>;
+    var barColors = ["#3fbad9", "#f64879","#31c1a4","#fbbd1b"];
+    new Chart("myChart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+            display: true,
+            text: "Hospital Management System Users"
+            }
+        }
+    });
+</script>
 </div>

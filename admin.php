@@ -11,7 +11,7 @@
     $doctors_list = '';
 
 	// getting the list of doctors
-	$query = "SELECT * FROM admins ORDER BY create_datetime DESC";
+	$query = "SELECT * FROM admins WHERE isDeleted != true ORDER BY create_datetime DESC";
 	$doctors = mysqli_query($connection, $query);
 
 	verify_query($doctors);
@@ -19,8 +19,8 @@
 			$doctors_list .= "<tr>";
 			$doctors_list .= "<td>{$doctor['id']}</td>";
 			$doctors_list .= "<td>{$doctor['name']}</td>";
-            $doctors_list .= "<td>{$doctor['username']}</td>";
-			$doctors_list .= "<td>{$doctor['create_datetime']}</td>";
+            $doctors_list .= "<td>{$doctor['nic']}</td>";
+			$doctors_list .= "<td>{$doctor['type']}</td>";
 			$doctors_list .= "<td>
                                  <div class='action-container'>
                                     <a class='edit-button' href=\"modify-user.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
@@ -58,7 +58,7 @@
 
             <div>
                 <div class="viewpage-top-container">
-                    <a href="add-doctor.php" class="add-new-button">Add New System Admin &nbsp<i class="fa-solid fa-plus"></i></a>
+                    <a href="add-admin.php" class="add-new-button">Add New System Admin &nbsp<i class="fa-solid fa-plus"></i></a>
                 </div>
                 <table class="detail-table">
                         <tr>

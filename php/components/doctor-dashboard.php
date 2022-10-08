@@ -6,16 +6,16 @@ $nurse_count = '-';
 
 
 // getting the Counts
-$Active_Patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id AND isUnderSupervision=true AND isAdmit=false";
+$Active_Patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id AND isUnderSupervision=true AND isAdmit=false And isDeleted != true";
 $Active_Patients_result = mysqli_query($connection, $Active_Patients_query);
 
-$Active_Ward_Patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id AND isUnderSupervision=true AND isAdmit=true";
+$Active_Ward_Patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id AND isUnderSupervision=true AND isAdmit=true And isDeleted != true";
 $Active_Ward_Patients_result = mysqli_query($connection, $Active_Ward_Patients_query);
 
-$total_patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id";
+$total_patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id And isDeleted != true";
 $total_patients_result = mysqli_query($connection, $total_patients_query);
 
-$nurse_query = "SELECT * FROM nurses";
+$nurse_query = "SELECT * FROM nurses WHERE isDeleted != true";
 $nurses_result = mysqli_query($connection, $nurse_query);
 
 
@@ -37,7 +37,7 @@ if($nurses_result){
 $patients_list = '';
 
 // getting the list of patients
-$query = "SELECT * FROM patients WHERE supervisingDocID=$user_id AND isUnderSupervision=true AND isAdmit=false  LIMIT 10";
+$query = "SELECT * FROM patients WHERE supervisingDocID=$user_id AND isUnderSupervision=true AND isAdmit=false AND isDeleted != true  LIMIT 10";
 $patients = mysqli_query($connection, $query);
 
 verify_query($patients);

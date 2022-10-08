@@ -3,13 +3,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v870-tang-36_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=d79f64b7b61002995177b5a8d81b522e");
+    background-image: url("../images/background/loginbg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .l{
-    background-color: #daf1ed;
+    background-color: #afdbf5;
     padding: 1rem;
 }
 

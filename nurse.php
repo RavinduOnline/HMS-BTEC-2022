@@ -21,12 +21,14 @@
 			$doctors_list .= "<td>{$doctor['name']}</td>";
             $doctors_list .= "<td>{$doctor['nic']}</td>";
 			$doctors_list .= "<td>{$doctor['type']}</td>";
-			$doctors_list .= "<td>
-                                 <div class='action-container'>
-                                    <a class='edit-button' href=\"modify-user.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                    <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
-                                  </div>
-                              </td>";
+            if($_SESSION['access'] == 'admin'){
+                $doctors_list .= "<td>
+                                    <div class='action-container'>
+                                        <a class='edit-button' href=\"modify-nurse.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                    </div>
+                                </td>";
+            }
 			$doctors_list .= "</tr>";
 		}
 
@@ -58,7 +60,11 @@
 
             <div>
                 <div class="viewpage-top-container">
-                    <a href="add-doctor.php" class="add-new-button">Add New Nurse &nbsp<i class="fa-solid fa-plus"></i></a>
+                             <?php 
+                                  if($_SESSION['access'] == 'admin'){
+                                    echo '<a href="add-nurse.php" class="add-new-button">Add New Nurse &nbsp<i class="fa-solid fa-plus"></i></a>';
+                                  }
+                            ?>
                 </div>
                 <table class="detail-table">
                         <tr>
@@ -66,7 +72,11 @@
                             <th>Name</th>
                             <th>NIC</th>
                             <th>Role</th>
-                            <th id="action-col">Action</th>
+                            <?php 
+                                  if($_SESSION['access'] == 'admin'){
+                                    echo '<th id="action-col">Action</th>';
+                                  }
+                            ?>
                         </tr>
                         
                         <?php echo $doctors_list; ?>
