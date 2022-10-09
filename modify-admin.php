@@ -17,11 +17,13 @@
     $user_id = '';
     $isActive = '';
     $isActiveStatus = '';
+    $username = '';
+    $old_username = '';
 
     if (isset($_GET['user_id'])) {
 		// getting the user information
 		$user_id = mysqli_real_escape_string($connection, $_GET['user_id']);
-		$query = "SELECT * FROM nurses WHERE id = {$user_id} LIMIT 1";
+		$query = "SELECT * FROM admins WHERE id = {$user_id} LIMIT 1";
 
 		$result_set = mysqli_query($connection, $query);
 
@@ -33,6 +35,7 @@
                 $name = $result['name'];
                 $position = $result['type'];
                 $nic =  $result['nic'];
+                $old_username = $result['username'];
                 $oldPassword = $result['password'];
                 $isActive = $result['isActive'];
                 if($isActive){
@@ -43,11 +46,11 @@
                 }
 			} else {
 				// user not found
-				header('Location:nurse.php?err=user_not_found');	
+				header('Location:admin.php?err=user_not_found');	
 			}
 		} else {
 			// query unsuccessful
-			header('Location: nurse.php?err=query_failed');
+			header('Location: admin.php?err=query_failed');
 		}
 	}
 
@@ -60,8 +63,10 @@
         $name = $_POST['name'];
         $position = $_POST['position'];
         $nic = $_POST['nic'];
+        $old_username =  $_POST['old_username'];
+        $username = $_POST['username'];
         $oldPassword = $_POST['old_password'];
-        $password = $_POST['new_password'];
+        $password = $_POST['password'];
         $isActive = $_POST['isActive'];
 
 		// checking required fields
@@ -69,12 +74,12 @@
 		$errors = array_merge($errors, check_req_fields($req_fields));
 
         // checking max length
-		$max_len_fields = array('name' => 100, 'position' =>100, 'nic' => 12, 'isActive' => 1  , 'password' => 20);
+		$max_len_fields = array('name' => 100, 'position' =>100, 'nic' => 12, 'username' => 25, 'password' => 20);
         $errors = array_merge($errors, check_max_len($max_len_fields));
 
-         // checking if NIC  already exists
+        // checking if NIC  already exists
 		$nic = mysqli_real_escape_string($connection, $_POST['nic']);
-		$query = "SELECT * FROM nurses WHERE nic = '{$nic}' AND id != {$user_id} LIMIT 1";
+		$query = "SELECT * FROM admins WHERE nic = '{$nic}' AND id != {$user_id} LIMIT 1";
 
 		$result_set = mysqli_query($connection, $query);
 
@@ -84,18 +89,38 @@
 			}
 		}
 
+        $username = mysqli_real_escape_string($connection,  trim($_POST['username']));
+
+        if(!empty($username)){  
+            $query = "SELECT * FROM admins WHERE username = '{$username}' LIMIT 1";
+            $result_set = mysqli_query($connection, $query);
+
+            if ($result_set) {
+                if (mysqli_num_rows($result_set) == 1) {
+                    $errors[] = 'This Username is already taken';
+                }
+            }
+        }
+        
+
+
+		
+
+
         if (empty($errors)) {
 			// no errors found... adding new record
             $user_id = mysqli_real_escape_string($connection, $_POST['user_id']);
 			$name = mysqli_real_escape_string($connection, $_POST['name']);
 			$position = mysqli_real_escape_string($connection, $_POST['position']);
 			$nic = mysqli_real_escape_string($connection, $_POST['nic']);
-            $password = mysqli_real_escape_string($connection, $_POST['new_password']);
-            $oldPassword = mysqli_real_escape_string($connection, $_POST['old_password']);
-            $isActive = mysqli_real_escape_string($connection,  $_POST['isActive']);
+            $old_username =  mysqli_real_escape_string($connection, $_POST['old_username']);
+            $username = mysqli_real_escape_string($connection, trim($_POST['username']));
+            $password = mysqli_real_escape_string($connection, trim($_POST['password']));
+            $oldPassword =  mysqli_real_escape_string($connection, trim($_POST['old_password']));
+            $isActive =  mysqli_real_escape_string($connection, $_POST['isActive']);
+            $insert_username = '';
 
-            
-           if(!empty(trim($password))){  
+            if(!empty(trim($password))){  
                 // encrypt password
                 $hashed_password = sha1($password);
            }
@@ -103,15 +128,23 @@
                $hashed_password =  $oldPassword;
            }
 
+           if(!empty($username)){  
+                $insert_username = $username;
+            }
+            else{
+                $insert_username = $old_username;
+            }
+        
+        
+            
 
-			$query = "UPDATE `nurses` SET `password`='{$hashed_password}', `name`='{$name}', `type`='{$position}', `nic`='{$nic}' , `isActive`='{$isActive}' WHERE `nurses`.`id` = {$user_id}";
-
+			$query =  "UPDATE `admins` SET `username` = '{$insert_username}', `password` = '{$hashed_password}', `name` = '{$name}', `nic` = '{$nic}', `type` = '{$position}', `isActive` = '{$isActive}' WHERE `admins`.`id` = {$user_id}";
 
 			$result = mysqli_query($connection, $query);
 
 			if ($result) {
 				// query successful... redirecting to doctor page
-				header('Location: nurse.php?nurse_modify=true');
+				header('Location: admin.php?nurse_added=true');
 			} else {
 				$errors[] = 'Failed to add the new record.';
 			}
@@ -138,23 +171,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modify Nurse - HMS</title>
+    <title>Modify Administrator - HMS</title>
 </head>
 <body>
    <!--Header call-->
    <?php include './php/components/sidebar.php' ?>
 
     <div class="body-text">
-            <h1 class="page-main-title">&nbsp Modify Nurse</h1>
+            <h1 class="page-main-title">&nbsp Modify Administrator</h1>
             <hr/>
 
             <div>
                 <div class="addpage-top-container">
-                    <a href="nurse.php" class="back-button"><i class="fa-solid fa-chevron-left"></i>&nbsp Back to Nurses List</a>
+                    <a href="admin.php" class="back-button"><i class="fa-solid fa-chevron-left"></i>&nbsp Back to Admin List</a>
                 </div>
 
                 <div class="form-container">
-                    <form action="modify-nurse.php" method="post" class="form-box">
+                    <form action="modify-admin.php" method="post" class="form-box">
+                       
                         <input <?php echo 'value="' . $user_id . '"'; ?> type="hidden" name="user_id">
                         <div>
                             <label>Name:</label>
@@ -167,9 +201,8 @@
                             <br/>
                             <select name="position" required>
                                     <?php echo "<option value='{$position}'  selected hidden>{$position}</option>"; ?>
-                                    <option value="Junior Nurse">Junior Nurse</option>
-                                    <option value="Nurse">Nurse</option>
-                                    <option value="Senior Nurse">Senior Nurse</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Senior Manager">Senior Manager</option>
                             </select>
                         </div>
 
@@ -190,19 +223,31 @@
                         </div>
 
                         <div>
-                            <label>Password:</label>
+                            <label>Current Username:</label>
                             <br/>
-                            <input  type="password" name="old_password" <?php echo 'value="' . $oldPassword . '"'; ?> READONLY>
+                            <input type="text" name="old_username" placeholder="Entre Username" maxlength="100"   <?php echo 'value="' . $old_username . '"'; ?> readonly>
+                        </div>
+
+                        <div>
+                            <label>New Username:</label>
+                            <br/>
+                            <input type="text" name="username" placeholder="Entre Username" maxlength="100"   <?php echo 'value="' . $username . '"'; ?> >
+                        </div>
+
+                        <div>
+                            <label>Current Password:</label>
+                            <br/>
+                            <input type="password" name="old_password" placeholder="Entre Password"  <?php echo 'value="' . $oldPassword . '"'; ?> readonly>
                         </div>
 
                         <div>
                             <label>New Password:</label>
                             <br/>
-                            <input type="password" name="new_password" placeholder="Entre Password"  >
+                            <input type="password" name="password" placeholder="Entre Password"  >
                         </div>
                             <br/><br/>
                         <div class="submit-button-container">
-                            <button type="submit" name="submit"><i class="fa-solid fa-floppy-disk"></i>&nbsp Modify</button>
+                            <button type="submit" name="submit">Modify</button>
                         </div>
                         <?php 
                             if (!empty($errors)) {

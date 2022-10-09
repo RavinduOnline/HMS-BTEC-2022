@@ -112,7 +112,7 @@
 
             <div>
                 <div class="addpage-top-container">
-                    <a href="nurse.php" class="back-button"><i class="fa-solid fa-chevron-left"></i>&nbsp Back to Admin List</a>
+                    <a href="admin.php" class="back-button"><i class="fa-solid fa-chevron-left"></i>&nbsp Back to Admin List</a>
                 </div>
 
                 <div class="form-container">

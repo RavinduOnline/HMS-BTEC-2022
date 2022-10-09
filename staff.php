@@ -8,26 +8,26 @@
 		header('Location: login.php');
 	}
 
-    $doctors_list = '';
+    $staffs_list = '';
 
 	// getting the list of doctors
 	$query = "SELECT * FROM staffs ORDER BY create_datetime DESC";
-	$doctors = mysqli_query($connection, $query);
+	$staffs = mysqli_query($connection, $query);
 
-	verify_query($doctors);
-		while ($doctor = mysqli_fetch_assoc($doctors)) {
-			$doctors_list .= "<tr>";
-			$doctors_list .= "<td>{$doctor['id']}</td>";
-			$doctors_list .= "<td>{$doctor['name']}</td>";
-            $doctors_list .= "<td>{$doctor['nic']}</td>";
-			$doctors_list .= "<td>{$doctor['type']}</td>";
-			$doctors_list .= "<td>
+	verify_query($staffs);
+		while ($staff = mysqli_fetch_assoc($staffs)) {
+			$staffs_list .= "<tr>";
+			$staffs_list .= "<td>{$staff['id']}</td>";
+			$staffs_list .= "<td>{$staff['name']}</td>";
+            $staffs_list .= "<td>{$staff['nic']}</td>";
+			$staffs_list .= "<td>{$staff['type']}</td>";
+			$staffs_list .= "<td>
                                  <div class='action-container'>
-                                    <a class='edit-button' href=\"modify-staff.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                    <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                    <a class='edit-button' href=\"modify-staff.php?user_id={$staff['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                    <a class='delete-button' href=\"delete-user.php?user_id={$staff['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                   </div>
                               </td>";
-			$doctors_list .= "</tr>";
+			$staffs_list .= "</tr>";
 		}
 
 
@@ -69,7 +69,7 @@
                             <th id="action-col">Action</th>
                         </tr>
                         
-                        <?php echo $doctors_list; ?>
+                        <?php echo $staffs_list; ?>
                 </table>
             </div>
 

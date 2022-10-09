@@ -8,28 +8,28 @@
 		header('Location: login.php');
 	}
 
-    $doctors_list = '';
+    $nurses_list = '';
 
 	// getting the list of doctors
 	$query = "SELECT * FROM nurses ORDER BY create_datetime DESC";
-	$doctors = mysqli_query($connection, $query);
+	$nurses = mysqli_query($connection, $query);
 
-	verify_query($doctors);
-		while ($doctor = mysqli_fetch_assoc($doctors)) {
-			$doctors_list .= "<tr>";
-			$doctors_list .= "<td>{$doctor['id']}</td>";
-			$doctors_list .= "<td>{$doctor['name']}</td>";
-            $doctors_list .= "<td>{$doctor['nic']}</td>";
-			$doctors_list .= "<td>{$doctor['type']}</td>";
+	verify_query($nurses);
+		while ($nurse = mysqli_fetch_assoc($nurses)) {
+			$nurses_list .= "<tr>";
+			$nurses_list .= "<td>{$nurse['id']}</td>";
+			$nurses_list .= "<td>{$nurse['name']}</td>";
+            $nurses_list .= "<td>{$nurse['nic']}</td>";
+			$nurses_list .= "<td>{$nurse['type']}</td>";
             if($_SESSION['access'] == 'admin'){
-                $doctors_list .= "<td>
+                $nurses_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-nurse.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                        <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                        <a class='edit-button' href=\"modify-nurse.php?user_id={$nurse['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='delete-button' href=\"delete-user.php?user_id={$nurse['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                     </div>
                                 </td>";
             }
-			$doctors_list .= "</tr>";
+			$nurses_list .= "</tr>";
 		}
 
 
@@ -79,7 +79,7 @@
                             ?>
                         </tr>
                         
-                        <?php echo $doctors_list; ?>
+                        <?php echo $nurses_list; ?>
                 </table>
             </div>
 

@@ -8,26 +8,26 @@
 		header('Location: login.php');
 	}
 
-    $doctors_list = '';
+    $admins_list = '';
 
 	// getting the list of doctors
 	$query = "SELECT * FROM admins WHERE isDeleted != true ORDER BY create_datetime DESC";
-	$doctors = mysqli_query($connection, $query);
+	$admins = mysqli_query($connection, $query);
 
-	verify_query($doctors);
-		while ($doctor = mysqli_fetch_assoc($doctors)) {
-			$doctors_list .= "<tr>";
-			$doctors_list .= "<td>{$doctor['id']}</td>";
-			$doctors_list .= "<td>{$doctor['name']}</td>";
-            $doctors_list .= "<td>{$doctor['nic']}</td>";
-			$doctors_list .= "<td>{$doctor['type']}</td>";
-			$doctors_list .= "<td>
+	verify_query($admins);
+		while ($admin = mysqli_fetch_assoc($admins)) {
+			$admins_list .= "<tr>";
+			$admins_list .= "<td>{$admin['id']}</td>";
+			$admins_list .= "<td>{$admin['name']}</td>";
+            $admins_list .= "<td>{$admin['nic']}</td>";
+			$admins_list .= "<td>{$admin['type']}</td>";
+			$admins_list .= "<td>
                                  <div class='action-container'>
-                                    <a class='edit-button' href=\"modify-user.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                    <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                    <a class='edit-button' href=\"modify-admin.php?user_id={$admin['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                    <a class='delete-button' href=\"delete-user.php?user_id={$admin['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                   </div>
                               </td>";
-			$doctors_list .= "</tr>";
+			$admins_list .= "</tr>";
 		}
 
 
@@ -69,7 +69,7 @@
                             <th id="action-col">Action</th>
                         </tr>
                         
-                        <?php echo $doctors_list; ?>
+                        <?php echo $admins_list; ?>
                 </table>
             </div>
 
