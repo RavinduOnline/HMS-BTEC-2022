@@ -136,11 +136,14 @@
     <title>Log In - HMS</title>
 </head>
 <body class="login-body">
+			<div class="system-logo">
+				<img src="./images/logo/hospital-management-system-logo-dark.png">
+			</div>
             <div class="login">
 
                     <form action="login.php" method="post">
                         <fieldset class="l">
-                            <legend><h1>Admin Log In</h1></legend>
+                            <legend><h1>HMS Log In</h1></legend>
 
                             <?php 
                                 if (!empty($errors)) {

@@ -1,5 +1,4 @@
 .login-body{
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,4 +48,18 @@
 	background: green;
 	color: white;
 	padding: 10px;
+}
+
+.system-logo{
+	position:absolute;
+	background-color: #002349;
+	top: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.system-logo img{
+	width: 14rem;
+	margin: 1rem 4rem;
 }

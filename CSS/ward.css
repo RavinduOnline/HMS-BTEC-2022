@@ -1,0 +1,85 @@
+.ward-dashboard-button-container{
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ward-dashboard-button-container a{
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1rem;
+    color: white;
+    transition-duration: 0.4s;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #008CBA;
+    border: 0px solid #008CBA;
+}
+
+.ward-dashboard-button-container a:hover{
+    color: #008CBA;
+    background-color: white; 
+    border: 2px solid #008CBA;
+}
+
+.left-button-ward{
+    margin-right: 1rem;
+}
+
+/* Ward Bed CSS */
+
+.bed-search{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.bed-search form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bed-search input{
+    width: 24rem;
+    height: 2.5rem;
+    padding: 1rem;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 2px;
+}
+
+.bed-search button{
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+    padding: 1rem;
+    margin: 0 0.5rem;
+    border-radius: 5px;
+    border: none;
+    font-weight: 700;
+    color: white;
+    transition-duration: 0.4s;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #008CBA;
+    border: 0px solid #008CBA;
+}
+
+.bed-search button:hover{
+    background-color: #07759a;
+}
+
+.ward-bed-top-details{
+    margin: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    border: 1px black groove;
+}
+
+

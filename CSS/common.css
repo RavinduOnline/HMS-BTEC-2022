@@ -6,8 +6,7 @@ body {
 .body-text{
     margin-left: 20rem;
     padding: 0.2rem 1rem;
-    height: 97vh;
-    margin-bottom: 7rem;
+    margin-bottom: 4rem;
     margin-top: 2rem;
 }
 
@@ -46,8 +45,13 @@ body {
 }
 
 #action-col{
-    width: 15rem;
+    width: 18rem;
 }
+
+#text-centre{
+    text-align: center;
+}
+
 
 /* View Page Top Container CSS */
 .viewpage-top-container{
@@ -58,10 +62,13 @@ body {
 }
 
 .add-new-button{
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
     font-weight: 700;
     font-size: 1.2rem;
-    padding: 1rem;
     color: white;
     transition-duration: 0.4s;
     text-align: center;
