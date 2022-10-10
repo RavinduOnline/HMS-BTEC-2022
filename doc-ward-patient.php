@@ -31,7 +31,7 @@
             $ward_patients_list .= "<td>
                                     <div class='action-container'>
                                         <a class='edit-button' href=\"modify-user.php?user_id={$ward_patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                        <a class='medication-button' href=\"modify-user.php?user_id={$ward_patient['id']}\">Give Medication</a>
+                                        <a class='medication-button' href=\"add-prescription.php?user_id={$ward_patient['id']}&page=doc-opd-patient.php\">Give Medication</a>
                                     </div>
                                 </td>";
             $ward_patients_list .= "</tr>";
@@ -78,6 +78,12 @@
                     </tr>
                     
                     <?php echo $ward_patients_list; ?>
+                    <?php if(!$ward_patients_list){
+                            echo '<td colspan="7" style="text-align:center;">
+                                    <i class="fa-sharp fa-solid fa-hourglass"></i>  No Patients Available
+                                  </td>';
+                                } 
+                    ?>
             </table>
         </div>
     </div>

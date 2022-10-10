@@ -12,11 +12,11 @@ $Active_Patients_result = mysqli_query($connection, $Active_Patients_query);
 $Active_Ward_Patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id AND isUnderSupervision=true AND isAdmit=true And isDeleted != true";
 $Active_Ward_Patients_result = mysqli_query($connection, $Active_Ward_Patients_query);
 
-$total_patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id And isDeleted != true";
+$total_patients_query = "SELECT * FROM `patients` WHERE supervisingDocID=$user_id And isUnderSupervision=true AND isDeleted != true";
 $total_patients_result = mysqli_query($connection, $total_patients_query);
 
-$nurse_query = "SELECT * FROM nurses WHERE isDeleted != true";
-$nurses_result = mysqli_query($connection, $nurse_query);
+$prescriptions_query = "SELECT * FROM prescriptions WHERE docid = $user_id";
+$prescriptions_result = mysqli_query($connection, $prescriptions_query);
 
 
 
@@ -30,8 +30,8 @@ if($Active_Ward_Patients_result){
 if($total_patients_result ){
     $total_patients = mysqli_num_rows( $total_patients_result );
 }
-if($nurses_result){
-    $nurse_count = mysqli_num_rows( $nurses_result );
+if($prescriptions_result){
+    $prescriptions_count = mysqli_num_rows( $prescriptions_result );
 }
 
 $patients_list = '';
@@ -60,7 +60,7 @@ verify_query($patients);
         $patients_list .= "<td>{$AdmitStatus}</td>";
         $patients_list .= "<td>
                              <div class='action-container'>
-                                <a class='medication-button' href=\"modify-user.php?user_id={$patient['id']}\">Give Medication &nbsp <i class='fa-solid fa-kit-medical'></i></a>
+                                <a class='medication-button' href=\"add-prescription.php?user_id={$patient['id']}&page=index.php\">Give Medication &nbsp <i class='fa-solid fa-kit-medical'></i></a>
                               </div>
                           </td>";
         $patients_list .= "</tr>";
@@ -91,7 +91,7 @@ verify_query($patients);
 
                     <div class="dashboard-card nurse-card">
                         <div class="dashboard-card-title"> <i class="fa-sharp fa-solid fa-notes-medical"></i> &nbsp; Patient's Reports</div>
-                        <div class="dashboard-card-data"><?php echo $nurse_count ?></div>
+                        <div class="dashboard-card-data"><?php echo $prescriptions_count ?></div>
                     </div>
                 </div>
             </div>

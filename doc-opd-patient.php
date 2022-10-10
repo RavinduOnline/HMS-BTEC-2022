@@ -14,7 +14,7 @@
     $user_id = $_SESSION['user_id'];
 
     	// getting the list of patients
-	$query = "SELECT * FROM patients WHERE supervisingDocID = 1 AND isAdmit=true AND isUnderSupervision=true AND isDeleted=false ORDER BY create_datetime DESC";
+	$query = "SELECT * FROM patients WHERE supervisingDocID = $user_id AND isAdmit=false AND isUnderSupervision=true AND isDeleted=false ORDER BY create_datetime DESC";
 	$patients = mysqli_query($connection, $query);
 
 	verify_query($patients);
@@ -29,7 +29,7 @@
             $patients_list .= "<td>
                                     <div class='action-container'>
                                         <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                        <a class='medication-button' href=\"modify-user.php?user_id={$patient['id']}\">Give Medication</a>
+                                        <a class='medication-button' href=\"add-prescription.php?user_id={$patient['id']}&page=doc-opd-patient.php\">Give Medication</a>
                                     </div>
                                 </td>";
 			$patients_list .= "</tr>";
@@ -73,6 +73,12 @@
                         </tr>
                         
                         <?php echo $patients_list; ?>
+                        <?php if(!$patients_list){
+                            echo '<td colspan="7" style="text-align:center;">
+                                    <i class="fa-sharp fa-solid fa-hourglass"></i>  No Patients Available
+                                  </td>';
+                                } 
+                        ?>
                 </table>
             </div>
     </div>
