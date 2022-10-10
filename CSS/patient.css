@@ -13,3 +13,27 @@
 .form-container-Patient{
     margin-bottom: 4rem;
 }
+
+.add-ward-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-ward-button-container button{
+    background-color: #008CBA;
+    border-radius: 5px;
+    padding: 0.7rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.add-ward-button-container button:hover {
+    background-color: #045e7c;
+}
+
+#form-notice{
+    color: red;
+    font-size: 11px;
+}

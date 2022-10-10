@@ -13,6 +13,17 @@
     $position = '';
     $nic = '';
     $password = '';
+    $ward_list  = '';
+    $ward_no = '';
+
+    $query = "SELECT * FROM `wards` WHERE isDeleted = false";
+    $ward_result = mysqli_query($connection, $query);
+
+    verify_query($ward_result);
+		while ($ward = mysqli_fetch_assoc($ward_result)) {
+			$ward_list .= "<option value='{$ward['id']}'>{$ward['id']} </option>";
+	}
+
 
 	if (isset($_POST['submit'])) {
         
@@ -20,9 +31,10 @@
         $position = $_POST['position'];
         $nic = $_POST['nic'];
         $password = $_POST['password'];
+        $ward_no = $_POST['wardNo'];
 
 		// checking required fields
-		$req_fields = array('name', 'position', 'nic', 'password');
+		$req_fields = array('name', 'position', 'nic', 'wardNo' , 'password');
 		$errors = array_merge($errors, check_req_fields($req_fields));
 
         // checking max length
@@ -47,12 +59,20 @@
 			$position = mysqli_real_escape_string($connection, $_POST['position']);
 			$nic = mysqli_real_escape_string($connection, $_POST['nic']);
             $password = mysqli_real_escape_string($connection, $_POST['password']);
+            $ward_no = mysqli_real_escape_string($connection, $_POST['wardNo']);
 
             
             // encrypt password
 			$hashed_password = sha1($password);
 
-			$query = "INSERT INTO `nurses` (`id`, `password`, `name`, `type`, `nic`,`create_datetime`) VALUES (NULL, '{$hashed_password}', '{$name}','{$position}' , '{$nic}', current_timestamp())";
+            if($ward_no == 'null'){
+                $query = "INSERT INTO `nurses` (`id`, `password`, `name`, `type`, `nic` , `wardNo` ,`create_datetime`) VALUES (NULL, '{$hashed_password}', '{$name}','{$position}' , '{$nic}', NULL , current_timestamp())";
+            }
+            else{
+                $query = "INSERT INTO `nurses` (`id`, `password`, `name`, `type`, `nic` , `wardNo` ,`create_datetime`) VALUES (NULL, '{$hashed_password}', '{$name}','{$position}' , '{$nic}', {$ward_no} , current_timestamp())";
+            }
+
+			
 
 			$result = mysqli_query($connection, $query);
 
@@ -123,6 +143,16 @@
                             <label>NIC No:</label>
                             <br/>
                             <input type="text" name="nic" placeholder="Entre NIC Number"   <?php echo 'value="' . $nic . '"'; ?> >
+                        </div>
+
+                        <div>
+                            <label>Ward No:</label>
+                            <br/>
+                            <select name="wardNo" required>
+                                <option value="" selected hidden>Select Ward</option>
+                                <?php echo $ward_list; ?>
+                                <option value="null">No Assigned Ward</option>
+                            </select>
                         </div>
 
                         <div>

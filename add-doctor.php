@@ -20,7 +20,6 @@
         $name = $_POST['name'];
         $position = $_POST['position'];
         $nic = $_POST['nic'];
-        $ward = $_POST['ward'];
         $password = $_POST['password'];
 
 		// checking required fields
@@ -28,7 +27,7 @@
 		$errors = array_merge($errors, check_req_fields($req_fields));
 
         // checking max length
-		$max_len_fields = array('name' => 100, 'position' =>100, 'nic' => 12, 'ward' => 3,'password' => 20);
+		$max_len_fields = array('name' => 100, 'position' =>100, 'nic' => 12, 'password' => 20);
         $errors = array_merge($errors, check_max_len($max_len_fields));
 
         // checking if NIC  already exists
@@ -48,7 +47,6 @@
 			$name = mysqli_real_escape_string($connection, $_POST['name']);
 			$position = mysqli_real_escape_string($connection, $_POST['position']);
 			$nic = mysqli_real_escape_string($connection, $_POST['nic']);
-            $ward = mysqli_real_escape_string($connection, $_POST['ward']);
             $password = mysqli_real_escape_string($connection, $_POST['password']);
 
             if(trim($ward) == ''){
@@ -57,7 +55,7 @@
             // encrypt password
 			$hashed_password = sha1($password);
 
-			$query = "INSERT INTO `doctors` (`id`, `password`, `name`, `nic`, `type`, `wardNo`, `create_datetime`) VALUES (NULL, '{$hashed_password}', '{$name}', '{$nic}', '{$position}', '{$ward}', current_timestamp())";
+			$query = "INSERT INTO `doctors` (`id`, `password`, `name`, `nic`, `type`,  `create_datetime`) VALUES (NULL, '{$hashed_password}', '{$name}', '{$nic}', '{$position}', current_timestamp())";
 
 			$result = mysqli_query($connection, $query);
 
@@ -117,7 +115,15 @@
                         <div>
                             <label>Position:</label>
                             <br/>
-                            <input type="text" name="position" placeholder="Entre Position" maxlength="100"  <?php echo 'value="' . $position . '"'; ?> required>
+                            <select name="position" required>
+                                <option value=''  selected hidden>Select Position</option>
+                                <option value="General Physician">General Physician</option>
+                                <option value="Neuro Physician">Neuro Physician</option>
+                                <option value="Internists Specialist">Internists Specialist </option>
+                                <option value="Gynecologists">Gynecologists</option>
+                                <option value="Pediatrician">Pediatrician</option>
+                                <option value="Emergency physicians">Emergency physicians</option>
+                            </select>
                         </div>
 
                         <div>
@@ -125,12 +131,7 @@
                             <br/>
                             <input type="text" name="nic" placeholder="Entre NIC Number"   <?php echo 'value="' . $nic . '"'; ?> >
                         </div>
-                        <div>
-                            <label>Ward No:</label>
-                            <br/>
-                            <input type="number" name="ward" placeholder="Entre Ward Number"   <?php echo 'value="' . $ward . '"'; ?>>
-                        </div>
-
+            
                         <div>
                             <label>New Password:</label>
                             <br/>

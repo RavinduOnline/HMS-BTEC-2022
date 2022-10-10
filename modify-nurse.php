@@ -17,38 +17,53 @@
     $user_id = '';
     $isActive = '';
     $isActiveStatus = '';
+    $ward_list  = '';
+    $ward_no = '';
 
     if (isset($_GET['user_id'])) {
-		// getting the user information
-		$user_id = mysqli_real_escape_string($connection, $_GET['user_id']);
-		$query = "SELECT * FROM nurses WHERE id = {$user_id} LIMIT 1";
 
-		$result_set = mysqli_query($connection, $query);
 
-		if ($result_set) {
-			if (mysqli_num_rows($result_set) == 1) {
-				// user found
-				$result = mysqli_fetch_assoc($result_set);
-                $user_id = $result['id'];;
-                $name = $result['name'];
-                $position = $result['type'];
-                $nic =  $result['nic'];
-                $oldPassword = $result['password'];
-                $isActive = $result['isActive'];
-                if($isActive){
-                    $isActiveStatus = 'Active';
+
+        $query = "SELECT * FROM `wards` WHERE isDeleted = false";
+        $ward_result = mysqli_query($connection, $query);
+
+        verify_query($ward_result);
+            while ($ward = mysqli_fetch_assoc($ward_result)) {
+                $ward_list .= "<option value='{$ward['id']}'>{$ward['id']} </option>";
+        }
+
+
+            // getting the user information
+            $user_id = mysqli_real_escape_string($connection, $_GET['user_id']);
+            $query = "SELECT * FROM nurses WHERE id = {$user_id} LIMIT 1";
+
+            $result_set = mysqli_query($connection, $query);
+
+            if ($result_set) {
+                if (mysqli_num_rows($result_set) == 1) {
+                    // user found
+                    $result = mysqli_fetch_assoc($result_set);
+                    $user_id = $result['id'];;
+                    $name = $result['name'];
+                    $position = $result['type'];
+                    $nic =  $result['nic'];
+                    $oldPassword = $result['password'];
+                    $ward_no = $result['wardNo'];
+                    $isActive = $result['isActive'];
+                    if($isActive){
+                        $isActiveStatus = 'Active';
+                    }
+                    else{
+                        $isActiveStatus = 'Deactivated';
+                    }
+                } else {
+                    // user not found
+                    header('Location:nurse.php?err=user_not_found');	
                 }
-                else{
-                    $isActiveStatus = 'Deactivated';
-                }
-			} else {
-				// user not found
-				header('Location:nurse.php?err=user_not_found');	
-			}
-		} else {
-			// query unsuccessful
-			header('Location: nurse.php?err=query_failed');
-		}
+            } else {
+                // query unsuccessful
+                header('Location: nurse.php?err=query_failed');
+            }
 	}
 
 
@@ -63,9 +78,10 @@
         $oldPassword = $_POST['old_password'];
         $password = $_POST['new_password'];
         $isActive = $_POST['isActive'];
+        $ward_no = $_POST['wardNo'];
 
 		// checking required fields
-		$req_fields = array('name', 'position', 'nic');
+		$req_fields = array('name', 'position', 'nic', 'wardNo');
 		$errors = array_merge($errors, check_req_fields($req_fields));
 
         // checking max length
@@ -93,6 +109,7 @@
             $password = mysqli_real_escape_string($connection, $_POST['new_password']);
             $oldPassword = mysqli_real_escape_string($connection, $_POST['old_password']);
             $isActive = mysqli_real_escape_string($connection,  $_POST['isActive']);
+            $ward_no = mysqli_real_escape_string($connection, $_POST['wardNo']);
 
             
            if(!empty(trim($password))){  
@@ -104,7 +121,14 @@
            }
 
 
-			$query = "UPDATE `nurses` SET `password`='{$hashed_password}', `name`='{$name}', `type`='{$position}', `nic`='{$nic}' , `isActive`='{$isActive}' WHERE `nurses`.`id` = {$user_id}";
+           if($ward_no == 'null'){
+			    $query = "UPDATE `nurses` SET `password`='{$hashed_password}', `name`='{$name}', `type`='{$position}', `nic`='{$nic}' , `wardNo` = null ,`isActive`='{$isActive}' WHERE `nurses`.`id` = {$user_id}";
+            }
+            else{
+			    $query = "UPDATE `nurses` SET `password`='{$hashed_password}', `name`='{$name}', `type`='{$position}', `nic`='{$nic}' , `wardNo` = {$ward_no} , `isActive`='{$isActive}' WHERE `nurses`.`id` = {$user_id}";
+            }
+
+
 
 
 			$result = mysqli_query($connection, $query);
@@ -177,6 +201,16 @@
                             <label>NIC No:</label>
                             <br/>
                             <input type="text" name="nic" placeholder="Entre NIC Number"   <?php echo 'value="' . $nic . '"'; ?> >
+                        </div>
+
+                        <div>
+                            <label>Ward No:</label>
+                            <br/>
+                            <select name="wardNo" required>
+                                <?php echo "<option value='{$ward_no}'  selected hidden>{$ward_no}</option>"; ?>
+                                <?php echo $ward_list; ?>
+                                <option value="null">No Assigned Ward</option>
+                            </select>
                         </div>
 
                         <div>

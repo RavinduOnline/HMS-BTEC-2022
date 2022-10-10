@@ -166,7 +166,15 @@
                         <div>
                             <label>Position:</label>
                             <br/>
-                            <input type="text" name="position" placeholder="Entre Position" maxlength="100"  <?php echo 'value="' . $position . '"'; ?> required>
+                            <select name="position" required>
+                                <?php echo "<option value='{$position}'  selected hidden>{$position}</option>"; ?>
+                                <option value="General Physician">General Physician</option>
+                                <option value="Neuro Physician">Neuro Physician</option>
+                                <option value="Internists Specialist">Internists Specialist </option>
+                                <option value="Gynecologists">Gynecologists</option>
+                                <option value="Pediatrician">Pediatrician</option>
+                                <option value="Emergency physicians">Emergency physicians</option>
+                            </select>
                         </div>
 
                         <div>

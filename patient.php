@@ -35,7 +35,7 @@
             if($_SESSION['access'] == 'admin'){
                 $patients_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='edit-button' href=\"modify-patient.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
                                         <a class='delete-button' href=\"delete-user.php?user_id={$patient['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                     </div>
                                 </td>";
@@ -43,7 +43,7 @@
             elseif($_SESSION['access'] == 'doctor'){
                 $patients_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='edit-button' href=\"modify-patient.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
                                         <a class='medication-button' href=\"modify-user.php?user_id={$patient['id']}\">Give Medication</a>
                                     </div>
                                 </td>";
@@ -51,7 +51,7 @@
             elseif($_SESSION['access'] == 'nurse'){
                 $patients_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='edit-button' href=\"modify-patient.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
                                     </div>
                                 </td>";
             }

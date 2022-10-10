@@ -21,6 +21,7 @@
 			$nurses_list .= "<td>{$nurse['name']}</td>";
             $nurses_list .= "<td>{$nurse['nic']}</td>";
 			$nurses_list .= "<td>{$nurse['type']}</td>";
+            $nurses_list .= "<td id='text-centre'>{$nurse['wardNo']}</td>";
             if($_SESSION['access'] == 'admin'){
                 $nurses_list .= "<td>
                                     <div class='action-container'>
@@ -72,6 +73,7 @@
                             <th>Name</th>
                             <th>NIC</th>
                             <th>Role</th>
+                            <th>Ward No</th>
                             <?php 
                                   if($_SESSION['access'] == 'admin'){
                                     echo '<th id="action-col">Action</th>';
