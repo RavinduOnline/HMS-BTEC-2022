@@ -25,8 +25,13 @@
         <?php
 
                     echo ' <a href="index.php" class="menu-item-link"> <i class="fa-solid fa-house-medical"></i> &nbsp Dashboard</a>';
-                if($_SESSION['access'] == "admin" || $_SESSION['access'] =="doctor" || $_SESSION['access'] =="nurse"){
+                if($_SESSION['access'] == "admin"  || $_SESSION['access'] =="nurse"){
                     echo '<a href="patient.php" class="menu-item-link"><i class="fa-solid fa-hospital-user"></i> &nbsp Manage Patients</a>';
+                    echo '<a href="ward.php" class="menu-item-link"><i class="fa-solid fa-bed-pulse"></i> &nbsp Manage Ward</a>';
+                }
+                if($_SESSION['access'] =="doctor" ){
+                    echo '<a href="doc-opd-patient.php" class="menu-item-link"><i class="fa-solid fa-hospital-user"></i> &nbsp Manage OPD Patients</a>'; 
+                    echo '<a href="doc-ward-patient.php" class="menu-item-link"><i class="fa-solid fa-person-shelter"></i> &nbsp Manage Ward Patients</a>';
                     echo '<a href="ward.php" class="menu-item-link"><i class="fa-solid fa-bed-pulse"></i> &nbsp Manage Ward</a>';
                 }
                 if($_SESSION['access'] == "admin"){
