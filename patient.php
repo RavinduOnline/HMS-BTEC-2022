@@ -31,27 +31,32 @@
             else{
                 $AdmitStatus = 'Not Admitted';
             }
-            $patients_list .= "<td>{$AdmitStatus}</td>";
+
+            if($_SESSION['access'] != 'staff'){
+                $patients_list .= "<td>{$AdmitStatus}</td>";
+            }
+
+           
             if($_SESSION['access'] == 'admin'){
                 $patients_list .= "<td>
                                     <div class='action-container'>
                                         <a class='edit-button' href=\"modify-patient.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                        <a class='delete-button' href=\"delete-user.php?user_id={$patient['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                     </div>
                                 </td>";
+                                // <a class='delete-button' href=\"delete-user.php?user_id={$patient['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
             }
             elseif($_SESSION['access'] == 'doctor'){
                 $patients_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-patient.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                        <a class='medication-button' href=\"modify-user.php?user_id={$patient['id']}\">Give Medication</a>
+                                    <a class='edit-button' href=\"modify-doc-patient.php?user_id={$patient['id']}&page=patient.php\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                    <a class='medication-button' href=\"modify-doc-patient.php?user_id={$patient['id']}\">Give Medication</a>
                                     </div>
                                 </td>";
             }
             elseif($_SESSION['access'] == 'nurse'){
                 $patients_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-patient.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='edit-button' href=\"modify-doc-patient.php?user_id={$patient['id']}&page=patient.php\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
                                     </div>
                                 </td>";
             }
@@ -86,7 +91,10 @@
 
             <div>
                 <div class="viewpage-top-container">
-                    <a href="add-patient.php" class="add-new-button">Add New Patient &nbsp<i class="fa-solid fa-plus"></i></a>
+                            <?php if($_SESSION['access'] != 'staff'){
+                                echo "<a href='add-patient.php' class='add-new-button'>Add New Patient &nbsp<i class='fa-solid fa-plus'></i></a>";
+                                }
+                            ?>
                 </div>
                 <table class="detail-table">
                         <tr>
@@ -97,8 +105,11 @@
                             <th>Contact No</th>
                             <th>Custodians Name</th>
                             <th>Custodians Contact No</th>
-                            <th>Patient Status</th>
-                            <th id="action-col">Action</th>
+                            <?php if($_SESSION['access'] != 'staff'){
+                                echo "<th>Patient Status</th> 
+                                <th id='action-col'>Action</th>";
+                                }
+                            ?>
                         </tr>
                         
                         <?php echo $patients_list; ?>

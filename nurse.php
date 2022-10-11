@@ -26,7 +26,7 @@
                 $nurses_list .= "<td>
                                     <div class='action-container'>
                                         <a class='edit-button' href=\"modify-nurse.php?user_id={$nurse['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                        <a class='delete-button' href=\"delete-user.php?user_id={$nurse['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                        <a class='delete-button' href=\"delete-nurse.php?user_id={$nurse['id']}\" onclick=\"return confirm('Are you sure?');\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                     </div>
                                 </td>";
             }

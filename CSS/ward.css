@@ -147,3 +147,44 @@
 .Prescription-container button:hover{
     background-color:#1ebe06;
 }
+
+/* prescription */
+.prescription-button-box{
+    display: flex;
+    margin: 1rem;
+    height: 5rem;
+    flex-direction: row;
+    width:auto;
+    justify-content: flex-end;
+}
+
+.prescription-button-box a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12rem;
+    margin: 1rem;
+    font-weight: 800;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#prescription-back{
+    background-color: black;
+    color: white;
+}
+
+#prescription-complete{
+    background-color: #1ebe06;
+    color: white;
+}
+
+#prescription-back:hover{
+    background-color: #272732;
+}
+
+#prescription-complete:hover{
+    background-color: #e8a217;
+}

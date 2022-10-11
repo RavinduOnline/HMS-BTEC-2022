@@ -43,10 +43,10 @@
                 include './php/components/doctor-dashboard.php' ;
             }
             elseif($_SESSION['access'] =="nurse"){
-                include './php/components/admin-dashboard.php';
+                include './php/components/nurse-dashboard.php';
             }
             elseif($_SESSION['access'] =="staff"){
-                include './php/components/admin-dashboard.php';
+                include './php/components/staff-dashboard.php';
             }
         ?>
 

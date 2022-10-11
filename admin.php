@@ -8,6 +8,13 @@
 		header('Location: login.php?access=false');
 	}
 
+    $error="";
+
+    if (isset($_GET['err'])) {
+            $error = "Cannot Delete Current User";
+    }
+
+
     $admins_list = '';
 
 	// getting the list of doctors
@@ -24,7 +31,7 @@
 			$admins_list .= "<td>
                                  <div class='action-container'>
                                     <a class='edit-button' href=\"modify-admin.php?user_id={$admin['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                    <a class='delete-button' href=\"delete-user.php?user_id={$admin['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                    <a class='delete-button' href=\"delete-admin.php?user_id={$admin['id']}\" onclick=\"return confirm('Are you sure?');\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                   </div>
                               </td>";
 			$admins_list .= "</tr>";
@@ -47,6 +54,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Admins - HMS</title>
+   
 </head>
 <body>
    <!--Header call-->
@@ -60,6 +68,7 @@
                 <div class="viewpage-top-container">
                     <a href="add-admin.php" class="add-new-button">Add New System Admin &nbsp<i class="fa-solid fa-plus"></i></a>
                 </div>
+
                 <table class="detail-table">
                         <tr>
                             <th id="id-col">ID</th>
@@ -72,6 +81,13 @@
                         <?php echo $admins_list; ?>
                 </table>
             </div>
+
+            <?php if($error){
+                echo  "<script type='text/javascript'>
+                        alert('$error');
+                    </script>";
+
+            }?>
 
     </div>
 

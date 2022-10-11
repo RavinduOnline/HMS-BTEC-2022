@@ -19,23 +19,38 @@
     $docID = '';
     $haveResults= false;
 
-    if (isset($_POST['submit'])) {
+    if (isset($_GET['err'])) {
+        if($_GET['err'] == "cannot_delete_bed_has_patients"){
+            $error = "It cannot be deleted because there is a patient in the bed";
+        }
+    }
+
+
+    if (isset($_POST['submit']) || isset($_GET['ward_no'])) {
 
         $wardNo = $_POST['ward_no'];
+        if(!isset($_POST['submit'])){
+            $wardNo = $_GET['ward_no'];
+        }else{
+             // checking required fields
+                $req_fields = array('ward_no');
+                $errors = array_merge($errors, check_req_fields($req_fields));
 
-        // checking required fields
-		$req_fields = array('ward_no');
-		$errors = array_merge($errors, check_req_fields($req_fields));
+                // checking max length
+                $max_len_fields = array('ward_no' => 2);
+                $errors = array_merge($errors, check_max_len($max_len_fields));
+        }
 
-        // checking max length
-		$max_len_fields = array('ward_no' => 2);
-        $errors = array_merge($errors, check_max_len($max_len_fields));
+       
 
         if (empty($errors)) {
                 $wardNo = mysqli_real_escape_string($connection, $_POST['ward_no']);
+                if(!isset($_POST['submit'])){
+                    $wardNo = mysqli_real_escape_string($connection, $_GET['ward_no']);
+                }
                 
                 // getting the list of beds
-                $query = "SELECT * FROM beds WHERE wardNo = {$wardNo} ORDER BY bedNo";
+                $query = "SELECT * FROM beds WHERE wardNo = {$wardNo} AND isDeleted != true ORDER BY bedNo";
                 $beds = mysqli_query($connection, $query);
                
 
@@ -66,7 +81,7 @@
                             if($_SESSION['access'] == 'admin'){
                                 $bed_list .= "<td>
                                                     <div class='action-container'>
-                                                        <a class='delete-button' href=\"delete-bed.php?user_id={$bed['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                                        <a class='delete-button' href=\"delete-bed.php?bed_id={$bed['id']}&ward_id={$wardNo}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                                     </div>
                                                 </td>";
                             }
@@ -141,6 +156,13 @@
                 if ($haveResults) {
                     include './php/components/ward-bed-table.php';
                 } 
+
+                if($error){
+                    echo  "<script type='text/javascript'>
+                            alert('$error');
+                            </script>";
+    
+                }
             ?>
 
     </div>

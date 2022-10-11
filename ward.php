@@ -12,9 +12,17 @@
     $wardNo = '';
     $ward_result = '';
     $ward_count = '';
+    $error="";
+
+    if (isset($_GET['err'])) {
+        if($_GET['err'] == "cannot_delete_ward_has_patients"){
+            $error = "It cannot be deleted because there are patients in the ward";
+        }
+    }
+
 
 	// getting the list of wards
-	$query = "SELECT * FROM wards ORDER BY create_datetime DESC";
+	$query = "SELECT * FROM wards WHERE isDeleted != true ORDER BY create_datetime DESC";
 	$wards = mysqli_query($connection, $query);
 
 
@@ -54,7 +62,7 @@
             if($_SESSION['access'] == 'admin'){
                 $wards_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='delete-button' href=\"delete-user.php?user_id={$ward['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                        <a class='delete-button' href=\"delete-ward.php?ward_id={$ward['id']}\" onclick=\"return confirm('Are you sure?');\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                     </div>
                                 </td>";
             }
@@ -161,6 +169,12 @@
                         <?php echo $wards_list; ?>
                 </table>
             </div>
+            <?php if($error){
+                echo  "<script type='text/javascript'>
+                        alert('$error');
+                    </script>";
+
+            }?>
 
     </div>
 

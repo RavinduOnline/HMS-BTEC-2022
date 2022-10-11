@@ -12,11 +12,7 @@
             <div class="ward-bed-container">
    
                 <div class="viewpage-top-container">
-                             <?php 
-                                  if($_SESSION['access'] == 'admin'){
-                                    echo '<div><a href="add-ward.php" class="add-new-button">Add New Bed &nbsp<i class="fa-solid fa-plus"></i></a></div>';
-                                  }
-                            ?>
+                             
                 </div>
 
                 <table class="detail-table">

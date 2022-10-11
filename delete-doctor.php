@@ -12,10 +12,7 @@
 		// getting the user information
 		$user_id = mysqli_real_escape_string($connection, $_GET['user_id']);
 
-		if ( $user_id == $_SESSION['user_id'] ) {
-			// should not delete current user
-			header('Location: doctor.php?err=cannot_delete_current_user');
-		} else {
+		
 			// deleting the user
 			$query = "UPDATE doctors SET isDeleted = 1 WHERE id = {$user_id} LIMIT 1";
 
@@ -27,7 +24,6 @@
 			} else {
 				header('Location: doctor.php?err=delete_failed');
 			}
-		}
 		
 	} else {
 		header('Location: doctor.php');

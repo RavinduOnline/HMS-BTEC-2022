@@ -13,19 +13,19 @@
 		$user_id = mysqli_real_escape_string($connection, $_GET['user_id']);
 
 			// deleting the user
-			$query = "UPDATE staffs SET isDeleted = 1 WHERE id = {$user_id} LIMIT 1";
+			$query = "UPDATE nurses SET isDeleted = 1 WHERE id = {$user_id} LIMIT 1";
 
 			$result = mysqli_query($connection, $query);
 
 			if ($result) {
 				// user deleted
-				header('Location: staff.php?msg=user_deleted');
+				header('Location: nurse.php?msg=user_deleted');
 			} else {
-				header('Location: staff.php?err=delete_failed');
+				header('Location: nurse.php?err=delete_failed');
 			}
 		
 		
 	} else {
-		header('Location: staff.php');
+		header('Location: nurse.php');
 	}
 ?>

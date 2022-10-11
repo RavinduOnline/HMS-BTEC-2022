@@ -28,7 +28,7 @@
 
             $patients_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-user.php?user_id={$patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
+                                        <a class='edit-button' href=\"modify-doc-patient.php?user_id={$patient['id']}&page=doc-opd-patient.php\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
                                         <a class='medication-button' href=\"add-prescription.php?user_id={$patient['id']}&page=doc-opd-patient.php\">Give Medication</a>
                                     </div>
                                 </td>";

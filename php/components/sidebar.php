@@ -46,6 +46,14 @@
                     echo '<a href="admin.php" class="menu-item-link"><i class="fa-solid fa-toolbox"></i> &nbsp Manage Admins</a>';
                 }
 
+                if($_SESSION['access'] == "nurse"){
+                    echo '<a href="prescription.php" class="menu-item-link"><i class="fa-solid fa-prescription-bottle-medical"></i> &nbsp Prescription Management</a>';
+                }
+                if($_SESSION['access'] == "staff"){
+                    echo '<a href="patient.php" class="menu-item-link"><i class="fa-solid fa-hospital-user"></i> &nbsp Manage Patients</a>';
+
+                }
+
               
             ?>
 
