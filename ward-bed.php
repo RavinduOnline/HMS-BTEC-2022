@@ -49,7 +49,7 @@
 
                             $bedNo = $bed['bedNo'];
                             if($bedNo){
-                                $getPatientQuery = "SELECT first_name, last_name FROM `patients` WHERE bedID = {$bedNo} AND wardNo = {$wardNo} LIMIT 1 ";
+                                $getPatientQuery = "SELECT first_name, last_name FROM `patients` WHERE  isDeleted = false AND bedID = {$bedNo} AND wardNo = {$wardNo} LIMIT 1 ";
                                 $getPatient_result = mysqli_query($connection, $getPatientQuery);
                                 $getPatient = mysqli_fetch_assoc($getPatient_result);
 

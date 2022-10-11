@@ -11,7 +11,7 @@
     $nurses_list = '';
 
 	// getting the list of doctors
-	$query = "SELECT * FROM nurses ORDER BY create_datetime DESC";
+	$query = "SELECT * FROM nurses WHERE isDeleted = false ORDER BY create_datetime DESC";
 	$nurses = mysqli_query($connection, $query);
 
 	verify_query($nurses);

@@ -4,8 +4,8 @@
 
 <?php 
 	// checking if a user is logged in
-	if (!isset($_SESSION['user_id'])) {
-		header('Location: login.php');
+	if (!isset($_SESSION['user_id']) || 'admin' != $_SESSION['access']) {
+		header('Location: login.php?access=false');
 	}
 
     $admins_list = '';

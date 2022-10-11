@@ -4,8 +4,8 @@
 
 <?php 
 	// checking if a user is logged in
-	if (!isset($_SESSION['user_id'])) {
-		header('Location: login.php');
+	if (!isset($_SESSION['user_id'])  || 'admin' != $_SESSION['access']) {
+		header('Location: login.php?access=false');
 	}
 
     $doctors_list = '';
@@ -24,7 +24,7 @@
 			$doctors_list .= "<td>
                                  <div class='action-container'>
                                     <a class='edit-button' href=\"modify-doctor.php?user_id={$doctor['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                    <a class='delete-button' href=\"delete-user.php?user_id={$doctor['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                    <a class='delete-button' href=\"delete-doctor.php?user_id={$doctor['id']}\" onclick=\"return confirm('Are you sure?');\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                   </div>
                               </td>";
 			$doctors_list .= "</tr>";

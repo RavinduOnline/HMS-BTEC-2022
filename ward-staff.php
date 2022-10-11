@@ -55,7 +55,7 @@
                     }
 
                     // getting the head doctor name
-                    $query = "SELECT headDocID FROM wards WHERE id = {$wardNo} LIMIT 1";
+                    $query = "SELECT headDocID FROM wards WHERE id = {$wardNo} AND  isDeleted = false LIMIT 1";
                     $wardDocResult = mysqli_query($connection, $query);
                     verify_query($wardDocResult);
                     $wardDoc = mysqli_fetch_assoc($wardDocResult);

@@ -54,7 +54,6 @@
             if($_SESSION['access'] == 'admin'){
                 $wards_list .= "<td>
                                     <div class='action-container'>
-                                        <a class='edit-button' href=\"modify-ward.php?user_id={$ward['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
                                         <a class='delete-button' href=\"delete-user.php?user_id={$ward['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                     </div>
                                 </td>";

@@ -11,7 +11,7 @@
     $patients_list = '';
 
 	// getting the list of patients
-	$query = "SELECT * FROM patients ORDER BY create_datetime DESC";
+	$query = "SELECT * FROM patients WHERE isDeleted = false ORDER BY create_datetime DESC";
 	$patients = mysqli_query($connection, $query);
 
 	verify_query($patients);

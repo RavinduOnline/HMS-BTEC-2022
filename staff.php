@@ -10,8 +10,8 @@
 
     $staffs_list = '';
 
-	// getting the list of doctors
-	$query = "SELECT * FROM staffs ORDER BY create_datetime DESC";
+	// getting the list
+	$query = "SELECT * FROM staffs WHERE  isDeleted = false ORDER BY create_datetime DESC";
 	$staffs = mysqli_query($connection, $query);
 
 	verify_query($staffs);
@@ -24,7 +24,7 @@
 			$staffs_list .= "<td>
                                  <div class='action-container'>
                                     <a class='edit-button' href=\"modify-staff.php?user_id={$staff['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                    <a class='delete-button' href=\"delete-user.php?user_id={$staff['id']}\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
+                                    <a class='delete-button' href=\"delete-staff.php?user_id={$staff['id']}\"  onclick=\"return confirm('Are you sure?');\">Delete &nbsp <i class='fa-solid fa-trash-can'></i></a>
                                   </div>
                               </td>";
 			$staffs_list .= "</tr>";
