@@ -31,7 +31,7 @@
             $ward_patients_list .= "<td>
                                     <div class='action-container'>
                                         <a class='edit-button' href=\"modify-user.php?user_id={$ward_patient['id']}\">Edit &nbsp <i class='fa-solid fa-pen-to-square'></i></a>
-                                        <a class='medication-button' href=\"add-prescription.php?user_id={$ward_patient['id']}&page=doc-opd-patient.php\">Give Medication</a>
+                                        <a class='medication-button' href=\"add-prescription.php?user_id={$ward_patient['id']}&page=doc-ward-patient.php\">Give Medication</a>
                                     </div>
                                 </td>";
             $ward_patients_list .= "</tr>";
